@@ -21,6 +21,7 @@
     pip:
       name: docker-compose
   - name: Create Volumes
+    docker_volume:
       name: "{{item}}"
     loop: [ 'nginx_conf_volume', 'nginx_content_volume' ]
   - name: Copy Docker-compose
