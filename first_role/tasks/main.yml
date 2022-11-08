@@ -20,6 +20,10 @@
   - name: Pip Docker-compose
     pip:
       name: docker-compose
+  - name: Creates Docker Directory
+    file:
+      path: /root/docker
+      state: directory
   - name: Create Volumes
     docker_volume:
       name: "{{item}}"
