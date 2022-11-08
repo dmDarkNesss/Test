@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  nginx:
+    container_name: nginx
+    hostname: default
+    image: nginx
+    volumes:
+      - nginx_conf_volume:/etc/nginx
+      - nginx_content_volume:/usr/share/nginx/html
+    ports:
+      - "80:80"
+    restart: always
+    networks:
+      - default
+
+volumes:
+  nginx_conf_volume:
+    external: true
+  nginx_content_volume:
+    external: true

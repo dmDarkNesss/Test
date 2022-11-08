@@ -1,0 +1,57 @@
+---
+# tasks file for first_role
+
+  - name: Update_Cache
+    apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
+  - name: Install Packages
+    apt: update_cache=yes name={{ item }} state=latest
+    loop: [ 'ca-certificates', 'curl', 'gnupg','lsb-release' ]
+  - name: Add Docker GPG apt Key
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+  - name: Add Docker Repository
+    apt_repository:
+      repo: deb https://download.docker.com/linux/ubuntu bionic stable
+      state: present
+  - name: Install Docker-ce
+    apt: update_cache=yes name={{ item }} state=latest
+    loop: [ 'docker-ce', 'docker-ce-cli', 'containerd.io','docker-compose-plugin' ]
+  - name: Pip Docker-compose
+    pip:
+      name: docker-compose
+
+  - name: Copy Docker-compose
+    copy:
+      src: docker-compose.yml
+      dest: /root/docker/docker-compose.yml
+      mode: 0777
+  - name: Start service
+    docker_compose:
+      project_src: /root/docker/
+      recreate: always
+  - name: Stop container
+    docker_container:
+      name: nginx
+      state: stopped
+
+  - name: Copy Picture
+    copy:
+      src: cat.jpg
+      dest: /var/lib/docker/volumes/nginx_content_volume/_data/cat.jpg
+      mode: 0777
+
+  - name: Copy Nginx_config
+    copy:
+      src: default.conf
+      dest: /var/lib/docker/volumes/nginx_conf_volume/_data/conf.d/defa>
+      mode: 0777
+      backup: no
+
+  - name: Start container
+    docker_container:
+      name: nginx
+      image: nginx
+      state: started
+
+
