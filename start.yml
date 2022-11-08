@@ -1,0 +1,5 @@
+---
+  - name: Strat Role
+    hosts: all
+    roles:
+      - first_role
