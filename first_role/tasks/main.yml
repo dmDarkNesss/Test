@@ -46,7 +46,7 @@
   - name: Copy Nginx_config
     copy:
       src: default.conf
-      dest: /var/lib/docker/volumes/nginx_conf_volume/_data/conf.d/defa>
+      dest: /var/lib/docker/volumes/nginx_conf_volume/_data/conf.d/default.conf
       mode: 0777
       backup: no
 
