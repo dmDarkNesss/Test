@@ -20,7 +20,9 @@
   - name: Pip Docker-compose
     pip:
       name: docker-compose
-
+  - name: Create Volumes
+      name: "{{item}}"
+    loop: [ 'nginx_conf_volume', 'nginx_content_volume' ]
   - name: Copy Docker-compose
     copy:
       src: docker-compose.yml
