@@ -37,10 +37,10 @@
     docker_compose:
       project_src: /root/docker/
       recreate: always
-  - name: Stop container
-    docker_container:
-      name: nginx
-      state: stopped
+#  - name: Stop container
+#    docker_container:
+#      name: nginx
+#      state: stopped
 
   - name: Copy Picture
     copy:
@@ -55,10 +55,10 @@
       mode: 0777
       backup: no
 
-  - name: Start container
+  - name: Restart container
     docker_container:
       name: nginx
       image: nginx
       state: started
-
+      restart: true
 
